@@ -19,6 +19,7 @@ process QUAST {
     """
     quast.py \\
         --output-dir quast \\
+        -r $params.fasta \\
         --threads $task.cpus \\
         $assembly
 

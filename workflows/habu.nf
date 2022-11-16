@@ -136,14 +136,14 @@ workflow HABU {
     ch_versions = ch_versions.mix(FILTLONG.out.versions.first())
 
     //
-    //Combine filtered long reads into trimmed short reads channel for input to UniCycler
-    //
-    ch_hybridReads = TRIMGALORE.out.reads.join(FILTLONG.out.reads)
-
-    //
     //MODULES: Run UniCycler
     //
-    UNICYCLER (ch_hybridReads)
+    if (params.filter == true){
+        UNICYCLER (TRIMGALORE.out.reads.join(FILTLONG.out.reads))
+    }
+    else if (params.filter == false){
+        UNICYCLER (TRIMGALORE.out.reads.join(PORECHOP_PORECHOP.out.reads))
+    }
     ch_versions = ch_versions.mix(UNICYCLER.out.versions.first())
 
     //
