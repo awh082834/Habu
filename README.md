@@ -14,7 +14,7 @@
 
 <!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
 
-**nf-core/habu** is a bioinformatics best-practice analysis pipeline for This is a pipeline that assembles bacterial sequences utilizing hybrid assembly through Unicycler.
+**nf-core/habu** is a bioinformatics best-practice analysis pipeline that assembles bacterial sequences utilizing hybrid assembly through Unicycler.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker/Singularity containers making installation trivial and results highly reproducible. The [Nextflow DSL2](https://www.nextflow.io/docs/latest/dsl2.html) implementation of this pipeline uses one container per process which makes it much easier to maintain and update software dependencies. Where possible, these processes have been submitted to and installed from [nf-core/modules](https://github.com/nf-core/modules) in order to make them available to all nf-core pipelines, and to everyone within the Nextflow community!
 
@@ -28,6 +28,13 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+3. Long Read QC ([`NanoPlot`])
+4. Hybrid Assembly ([`Unicycler`])
+5. Polishing ([`Medaka`])
+6. Assembly Metrics ([`Quast`])
+7. Annotation ([`Prokka`])
+8. AMR ([`AMRFinderPlus`])
+9. Assembly Visualization ([`Bandage`])
 
 ## Quick Start
 
@@ -53,7 +60,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
    <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
 
    ```bash
-   nextflow run nf-core/habu --input samplesheet.csv --outdir <OUTDIR> --genome GRCh37 -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
+   nextflow run nf-core/habu --input samplesheet.csv --outdir <OUTDIR> --fasta <reference> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
    ```
 
 ## Documentation
