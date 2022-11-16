@@ -26,6 +26,14 @@
                     "type": "boolean",
                     "description": "When true, Filtlong will run."
                 },
+                "plasmid": {
+                    "type": "boolean",
+                    "description": "When included PlasmidFinder will run on the assembled contigs."
+                },
+                "plas_threshold": {
+                    "type": "integer",
+                    "description": "Identity threshold to be assigned to PlasmidFinder. Default 90"
+                },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",

@@ -41,6 +41,10 @@
                         "branch": "master",
                         "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
                     },
+                    "plasmidfinder": {
+                        "branch": "master",
+                        "git_sha": "5e34754d42cd2d5d248ca8673c0a53cdf5624905"
+                    },
                     "porechop/porechop": {
                         "branch": "master",
                         "git_sha": "2a4e85eb81875a572bb58133e37f84ba3cc484d7"

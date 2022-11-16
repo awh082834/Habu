@@ -71,7 +71,7 @@ include { MEDAKA                           } from '../modules/nf-core/medaka/mai
 include { PROKKA                           } from '../modules/nf-core/prokka/main'
 include { AMRFINDERPLUS_RUN                } from '../modules/nf-core/amrfinderplus/run/main'
 include { BANDAGE_IMAGE                    } from '../modules/nf-core/bandage/image/main'
-
+include { PLASMIDFINDER                    } from '../modules/nf-core/plasmidfinder/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -173,6 +173,12 @@ workflow HABU {
     //MODULES: Run Prokka
     //
     PROKKA (MEDAKA.out.assembly, [],[])
+    ch_versions = ch_versions.mix(PROKKA.out.versions.first())
+
+    //
+    //MODULES: Run PlasmidFinder
+    //
+    PLASMIDFINDER (MEDAKA.out.assembly)
     ch_versions = ch_versions.mix(PROKKA.out.versions.first())
 
     //
