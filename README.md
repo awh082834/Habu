@@ -35,6 +35,11 @@ On release, automated continuous integration tests run the pipeline on a full-si
 7. Annotation ([`Prokka`])
 8. AMR ([`AMRFinderPlus`])
 9. Assembly Visualization ([`Bandage`])
+10. Plasmid Analysis Subworkflow
+   1. Locate Plasmid Contigs (['PlasmidFinder'])
+   2. Isolate Plasmid Sequences 
+   3. AMR Characterization (['AMRFinderPlus'])
+   4. Annotation (['Prokka'])
 
 ## Quick Start
 
@@ -60,7 +65,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
    <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
 
    ```bash
-   nextflow run nf-core/habu --input samplesheet.csv --outdir <OUTDIR> --fasta <reference> -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
+   nextflow run nf-core/habu --input samplesheet.csv --outdir <OUTDIR> --fasta <reference> --filter --plasmid -profile <docker/singularity/podman/shifter/charliecloud/conda/institute>
    ```
 
 ## Documentation
