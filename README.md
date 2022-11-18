@@ -35,7 +35,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
 7. Annotation ([`Prokka`])
 8. AMR ([`AMRFinderPlus`])
 9. Assembly Visualization ([`Bandage`])
-10. Plasmid Analysis Subworkflow
+* Plasmid Analysis Subworkflow
    1. Locate Plasmid Contigs ([`PlasmidFinder`])
    2. Isolate Plasmid Sequences 
    3. AMR Characterization ([`AMRFinderPlus`])
