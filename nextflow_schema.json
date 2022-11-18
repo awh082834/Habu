@@ -32,7 +32,7 @@
                 },
                 "plas_threshold": {
                     "type": "number",
-                    "description": "Identity threshold to be assigned to PlasmidFinder. Default 90"
+                    "description": "Identity threshold to be assigned to PlasmidFinder. Default 0.09, 0.1 == 100%"
                 },
                 "outdir": {
                     "type": "string",

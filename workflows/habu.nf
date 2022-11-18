@@ -41,7 +41,8 @@ include { UNZIP                            } from '../modules/local/unzip'
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { INPUT_CHECK } from '../subworkflows/local/input_check'
+include { INPUT_CHECK   } from '../subworkflows/local/input_check'
+include { PLAS_ANALYSIS } from '../subworkflows/local/plas_analysis'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -158,6 +159,13 @@ workflow HABU {
     ch_versions = ch_versions.mix(MEDAKA.out.versions.first())
 
     //
+    //MODULES: Plasmid Analysis Subworkflow
+    //
+    if (params.plasmid == true){
+        PLAS_ANALYSIS (MEDAKA.out.assembly)
+    }
+
+    //
     //MODULES: Run QUAST
     //
     QUAST (MEDAKA.out.assembly)
@@ -173,12 +181,6 @@ workflow HABU {
     //MODULES: Run Prokka
     //
     PROKKA (MEDAKA.out.assembly, [],[])
-    ch_versions = ch_versions.mix(PROKKA.out.versions.first())
-
-    //
-    //MODULES: Run PlasmidFinder
-    //
-    PLASMIDFINDER (MEDAKA.out.assembly)
     ch_versions = ch_versions.mix(PROKKA.out.versions.first())
 
     //
