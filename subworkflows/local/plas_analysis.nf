@@ -1,17 +1,17 @@
-include { PLASMIDFINDER        } from '../../modules/nf-core/plasmidfinder/main'
-include { PROKKA_PLAS              } from '../../modules/local/prokkaPlas/main'
-include { AMRFINDERPLUS_UPDATE } from '../../modules/nf-core/amrfinderplus/update/main'
+//include { PLASMIDFINDER        } from '../../modules/nf-core/plasmidfinder/main'
+include { MOBSUITE_RECON            } from '../../modules/nf-core/mobsuite/recon/main'
+include { PROKKA_PLAS               } from '../../modules/local/prokkaPlas/main'
+include { AMRFINDERPLUS_UPDATE      } from '../../modules/nf-core/amrfinderplus/update/main'
 include { AMRFINDERPLUS_PLAS_RUN    } from '../../modules/local/amrfinderplusPlas/run/main'
-include { PLASMIDPULLER        } from '../../modules/local/plasmid_puller'
+//include { PLASMIDPULLER        } from '../../modules/local/plasmid_puller'
+//include { CHECK_PLAS_FINDER        } from '../../modules/local/checkPlasFinder'
 
 workflow PLAS_ANALYSIS {
+
     take:
-    medakaOut
+    unicyclerOut
 
     main:
-    PLASMIDFINDER (medakaOut)
-    PLASMIDPULLER (medakaOut, PLASMIDFINDER.out.tsv)
-    AMRFINDERPLUS_UPDATE ()
-    AMRFINDERPLUS_PLAS_RUN (PLASMIDPULLER.out.plasmids, AMRFINDERPLUS_UPDATE.out.db)
-    PROKKA_PLAS (PLASMIDPULLER.out.plasmids, [], [])
+    MOBSUITE_RECON(unicyclerOut)
+    MOBSUITE_RECON.out.plasmids.view()
 }

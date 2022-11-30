@@ -162,7 +162,7 @@ workflow HABU {
     //MODULES: Plasmid Analysis Subworkflow
     //
     if (params.plasmid == true){
-        PLAS_ANALYSIS (MEDAKA.out.assembly)
+        PLAS_ANALYSIS (UNICYCLER.out.scaffolds)
     }
 
     //

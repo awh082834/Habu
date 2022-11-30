@@ -27,14 +27,17 @@ contigArray = []
 try:
     with open(plasTsv, 'r') as infile:
         lines = infile.readlines()
-        for line in lines:
-            if 'Database' in line:
-                continue
-            else:
-                temp = line.split("\t")
-                if temp[4] not in contigArray:
-                    contigArray.append(temp[4])
-    infile.close()
+        if len(lines) > 1:
+            for line in lines:
+                if 'Database' in line:
+                    continue
+                else:
+                    temp = line.split("\t")
+                    if temp[4] not in contigArray:
+                        contigArray.append(temp[4])
+        else:
+            infile.close()
+            
 except:
     print("PlasmidFinder File does not Exist")
 
