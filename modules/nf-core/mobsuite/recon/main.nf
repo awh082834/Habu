@@ -34,7 +34,7 @@ process MOBSUITE_RECON {
         --infile $fasta_name \\
         $args \\
         --num_threads $task.cpus \\
-        --outdir $prefix/results \\
+        --outdir results \\
         --sample_id $prefix
 
     cat <<-END_VERSIONS > versions.yml

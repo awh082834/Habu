@@ -32,12 +32,15 @@ process PROKKA_PLAS {
 
     script:
     def args = task.ext.args   ?: ''
-    prefix   = task.ext.prefix ?: "${meta.id}"
+    prefix   = task.ext.prefix ?: "${fasta.getSimpleName()}"
     def proteins_opt = proteins ? "--proteins ${proteins[0]}" : ""
     def prodigal_tf = prodigal_tf ? "--prodigaltf ${prodigal_tf[0]}" : ""
+    name = "${fasta.getName()}"
     """
     prokka \\
         $args \\
+        --centre plasmid \\
+        --compliant \\
         --cpus $task.cpus \\
         --prefix $prefix \\
         $proteins_opt \\

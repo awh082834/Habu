@@ -34,15 +34,17 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { QUAST                            } from '../modules/local/quast/main'
-include { SPLITLR                          } from '../modules/local/splitLR'
-include { UNZIP                            } from '../modules/local/unzip'
+include { QUAST    } from '../modules/local/quast/main'
+include { SPLITLR  } from '../modules/local/splitLR'
+include { UNZIP    } from '../modules/local/unzip'
+include { CLEAN_UP } from '../modules/local/cleanup'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 include { INPUT_CHECK   } from '../subworkflows/local/input_check'
 include { PLAS_ANALYSIS } from '../subworkflows/local/plas_analysis'
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -88,7 +90,7 @@ workflow HABU {
     
     //Channel used for input of Unicycler
     ch_hybridReads = Channel.empty()
-
+    
     //
     //SUBWORKFLOW: Read in samplesheet, validate and stage input files
     //
@@ -108,7 +110,7 @@ workflow HABU {
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
 
     //
-    //Isolates the long read reads
+    //Isolates long read reads
     //
     SPLITLR (INPUT_CHECK.out.reads)
 
@@ -216,6 +218,11 @@ workflow HABU {
     )
     multiqc_report = MULTIQC.out.report.toList()
     ch_versions    = ch_versions.mix(MULTIQC.out.versions)
+
+    //
+    //MODULE: CLEANUP
+    //
+    CLEAN_UP(AMRFINDERPLUS_RUN.out.report)
 }
 
 /*
