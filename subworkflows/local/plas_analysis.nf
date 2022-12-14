@@ -15,6 +15,6 @@ workflow PLAS_ANALYSIS {
     AMRFINDERPLUS_UPDATE()
     MOBSUITE_RECON(unicyclerOut)
     MOBSUITE_RECON.out.plasmids.view()
-    AMRFINDERPLUS_PLAS_RUN(MOBSUITE_RECON.out.plasmids.collect(),AMRFINDERPLUS_UPDATE.out.db)
-    PROKKA_PLAS (MOBSUITE_RECON.out.plasmids.collect(),[],[])
+    AMRFINDERPLUS_PLAS_RUN(MOBSUITE_RECON.out.plasmids,AMRFINDERPLUS_UPDATE.out.db)
+    PROKKA_PLAS (MOBSUITE_RECON.out.plasmids,[],[])
 }

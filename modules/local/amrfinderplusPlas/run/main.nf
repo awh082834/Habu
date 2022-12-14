@@ -13,7 +13,7 @@ process AMRFINDERPLUS_PLAS_RUN {
 
     output:
     tuple val(meta), path("${prefix}.tsv")          , emit: report
-    tuple val(meta), path("${prefix}-mutations.tsv"), emit: mutation_report, optional: true
+    tuple val(meta), path("${prefix}-mutations.tsv")     , emit: mutation_report, optional: true
     path "versions.yml"                             , emit: versions
     env VER                                         , emit: tool_version
     env DBVER                                       , emit: db_version
@@ -24,7 +24,7 @@ process AMRFINDERPLUS_PLAS_RUN {
     script:
     def args = task.ext.args ?: ''
     def is_compressed = fasta.getName().endsWith(".gz") ? true : false
-    prefix = task.ext.prefix ?: "${meta.id}_${fasta.getSimpleName()}"
+    prefix = task.ext.prefix ?: "${fasta.getSimpleName()}"
     organism_param = meta.containsKey("organism") ? "--organism ${meta.organism} --mutation_all ${prefix}-mutations.tsv" : ""
     fasta_name = fasta.getName().replace(".gz", "")
     fasta_param = "-n"

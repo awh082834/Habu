@@ -10,5 +10,7 @@ process CLEAN_UP{
     tuple val(meta), path(amrReport)
 
     script:
-    splitDir = file('params.outdir/splitLR')
+    """
+    rm -rf ${params.outdir}/splitlr
+    """
 }

@@ -11,10 +11,10 @@ process SPLITLR{
     tuple val(meta), path(reads)
 
     output:
-    tuple val(meta), path ('lr.fastq.gz')  , emit: longReads
+    tuple val(meta), path ('*.fastq.gz')  , emit: longReads
     
     script:
     """
-    mv ${reads[2]} lr.fastq.gz
+    mv ${reads[2]} ${meta.id}_lr.fastq.gz
     """
 }

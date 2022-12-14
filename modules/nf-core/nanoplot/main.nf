@@ -11,10 +11,10 @@ process NANOPLOT {
     tuple val(meta), path(ontfile)
 
     output:
-    tuple val(meta), path("*.html"), emit: html
-    tuple val(meta), path("*.png") , emit: png
-    tuple val(meta), path("*.txt") , emit: txt
-    tuple val(meta), path("*.log") , emit: log
+    tuple val(meta), path("${meta.id}/*.html"), emit: html
+    tuple val(meta), path("${meta.id}/*.png") , emit: png
+    tuple val(meta), path("*${meta.id}/*.txt") , emit: txt
+    tuple val(meta), path("*${meta.id}/*.log") , emit: log
     path  "versions.yml"           , emit: versions
 
     when:
@@ -27,6 +27,8 @@ process NANOPLOT {
     """
     NanoPlot \\
         $args \\
+        -o ${meta.id} \\
+        -p ${meta.id} \\
         -t $task.cpus \\
         $input_file
     cat <<-END_VERSIONS > versions.yml
