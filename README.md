@@ -28,17 +28,17 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
-3. Long Read QC ([`NanoPlot`]) (https://github.com/wdecoster/NanoPlot)
-4. Hybrid Assembly ([`Unicycler`]) (https://github.com/rrwick/Unicycler)
-5. Polishing ([`Medaka`]) (https://github.com/nanoporetech/medaka)
-6. Assembly Metrics ([`Quast`]) (https://academic.oup.com/bioinformatics/article/29/8/1072/228832?login=false)
-7. Annotation ([`Prokka`]) (https://academic.oup.com/bioinformatics/article/30/14/2068/2390517)
-8. AMR ([`AMRFinderPlus`]) (https://github.com/ncbi/amr)
-9. Assembly Visualization ([`Bandage`]) (https://github.com/rrwick/Bandage)
+3. Long Read QC ([`NanoPlot`](https://github.com/wdecoster/NanoPlot))
+4. Hybrid Assembly ([`Unicycler`](https://github.com/rrwick/Unicycler))
+5. Polishing ([`Medaka`](https://github.com/nanoporetech/medaka))
+6. Assembly Metrics ([`Quast`](https://academic.oup.com/bioinformatics/article/29/8/1072/228832?login=false))
+7. Annotation ([`Prokka`](https://academic.oup.com/bioinformatics/article/30/14/2068/2390517))
+8. AMR ([`AMRFinderPlus`](https://github.com/ncbi/amr))
+9. Assembly Visualization ([`Bandage`](https://github.com/rrwick/Bandage))
 * Plasmid Analysis Subworkflow
-   1. Plasmid Characterization ([`MOBSuite-Recon`]) (https://www.microbiologyresearch.org/content/journal/mgen/10.1099/mgen.0.000435)
-   2. AMR ([`AMRFinderPlus`]) (https://github.com/ncbi/amr)
-   3. Annotation ([`Prokka`]) (https://academic.oup.com/bioinformatics/article/30/14/2068/2390517)
+   1. Plasmid Characterization ([`MOBSuite-Recon`](https://www.microbiologyresearch.org/content/journal/mgen/10.1099/mgen.0.000435))
+   2. AMR ([`AMRFinderPlus`](https://github.com/ncbi/amr))
+   3. Annotation ([`Prokka`](https://academic.oup.com/bioinformatics/article/30/14/2068/2390517))
 
 ## Quick Start
 
