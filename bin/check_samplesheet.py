@@ -34,6 +34,7 @@ class RowChecker:
         sample_col="sample",
         first_col="fastq_1",
         second_col="fastq_2",
+        third_col="fastq_long",
         single_col="single_end",
         **kwargs,
     ):
@@ -47,6 +48,8 @@ class RowChecker:
                 FASTQ file path (default "fastq_1").
             second_col (str): The name of the column that contains the second (if any)
                 FASTQ file path (default "fastq_2").
+            third_col (str): The name of the column that contains the third (if any)
+                FASTQ file path (long read fastq) (default "fastq_long")
             single_col (str): The name of the new column that will be inserted and
                 records whether the sample contains single- or paired-end sequencing
                 reads (default "single_end").
@@ -56,6 +59,7 @@ class RowChecker:
         self._sample_col = sample_col
         self._first_col = first_col
         self._second_col = second_col
+        self._third_col = third_col
         self._single_col = single_col
         self._seen = set()
         self.modified = []
@@ -72,6 +76,7 @@ class RowChecker:
         self._validate_sample(row)
         self._validate_first(row)
         self._validate_second(row)
+        self._validate_third(row)
         self._validate_pair(row)
         self._seen.add((row[self._sample_col], row[self._first_col]))
         self.modified.append(row)
@@ -94,12 +99,18 @@ class RowChecker:
         if len(row[self._second_col]) > 0:
             self._validate_fastq_format(row[self._second_col])
 
+    def _validate_third(self, row):
+        """Assert that the third FASTQ entry has the right format if it exists."""
+        if len(row[self._third_col]) > 0:
+            self._validate_fastq_format(row[self._third_col])
+
     def _validate_pair(self, row):
         """Assert that read pairs have the same file extension. Report pair status."""
-        if row[self._first_col] and row[self._second_col]:
+        if row[self._first_col] and row[self._second_col] and row[self._third_col]:
             row[self._single_col] = False
             first_col_suffix = Path(row[self._first_col]).suffixes[-2:]
             second_col_suffix = Path(row[self._second_col]).suffixes[-2:]
+            third_col_suffix = Path(row[self._third_col]).suffixes[-2:]
             if first_col_suffix != second_col_suffix:
                 raise AssertionError("FASTQ pairs must have the same file extensions.")
         else:
@@ -130,7 +141,7 @@ class RowChecker:
             row[self._sample_col] = f"{sample}_T{seen[sample]}"
 
 
-def read_head(handle, num_lines=10):
+def read_head(handle, num_lines=1):
     """Read the specified number of lines from the current position in the file."""
     lines = []
     for idx, line in enumerate(handle):
@@ -191,7 +202,7 @@ def check_samplesheet(file_in, file_out):
         https://raw.githubusercontent.com/nf-core/test-datasets/viralrecon/samplesheet/samplesheet_test_illumina_amplicon.csv
 
     """
-    required_columns = {"sample", "fastq_1", "fastq_2"}
+    required_columns = {"sample", "fastq_1", "fastq_2", "fastq_long"}
     # See https://docs.python.org/3.9/library/csv.html#id3 to read up on `newline=""`.
     with file_in.open(newline="") as in_handle:
         reader = csv.DictReader(in_handle, dialect=sniff_format(in_handle))
